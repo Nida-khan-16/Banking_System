@@ -24,9 +24,9 @@ In the upcoming updates I will be adding features as listed below:<br>
 - Features in the 3rd update(ver 3) : Storing data in more complex and reliable data structure, and other updations<br>
 </h4>
 
-<h3>
+<h5>
   This whole project by far is coded by me with assistance of AIs like chatGPT, Claude, Gemini, etc.<br>
   I started this project just to mimic the exterior of an app, I haven't decided then to code logic of the backend too, But hopefully now I am slowly learning complexities of a real apps and get my hands on backend development even though this isn't a vary big project, this still is my first big project :)<br>
-  </h3>
+  </h5>
  </body>
 </HTML>
