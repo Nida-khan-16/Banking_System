@@ -54,7 +54,7 @@ class BankingSystem{
          System.out.println("\n=== Create New Account ===");
     System.out.print("Please entre your user name : ");
     String userName=scan.nextLine();
-    // (should we validate it? Think about empty usernames!)
+  
      while (!(valid.validAccountName(userName))) {
                         System.out.println("you have entered an invalid name!! please re-enter your name!! ");
                         userName=scan.nextLine();
@@ -69,7 +69,7 @@ class BankingSystem{
          System.out.println("you have entered an invalid Password!! please re-enter your Password!! ");
         pswd=scan.nextLine();
     }
-    // Step 3: Confirm password, (what if they don't match? Should we loop?)
+    // Step 3: Confirm password, 
     System.out.print("Please re-entre your Password : ");  
    
     while(true){
@@ -97,14 +97,20 @@ while(newUser == null){
 }
      // Step 7: Deposit initial amount   
 
-    System.out.print("Enter the initial amount you want to deposit : ");
+    System.out.print("Enter the initial amount you want to deposit(>500) : ");
     double deposit=scan.nextDouble();
     scan.nextLine();
-if(deposit > 0){
-    newUser.deposit(deposit);
+  while(deposit < 500){
+    System.out.println("Invalid amount, must enter mimimmum deposit of Rs.500");
+     System.out.print("Enter the initial amount you want to deposit: ");
+    deposit=scan.nextDouble();
+    scan.nextLine();
+}
+if(newUser.deposit(deposit)){
     System.out.println("Successfully deposited ₹" + deposit);
-} else {
-    System.out.println("Invalid amount! Starting balance will be ₹0");
+}
+else{
+    System.out.println("Transaction failed");
 }
     // Step 8: Set currentUser  ---> Step 9: Show success message and go to main menu
    this.currentUser = newUser;  // Set the CLASS field!
@@ -188,7 +194,7 @@ if(deposit > 0){
                     System.out.println("Amount has Successfully added to your balance!");
                 }
                 else{
-                    System.out.println("Please enter a valid amount!");
+                    System.out.println("Transaction failed");
                     break;
                 }
             }
@@ -201,16 +207,19 @@ if(deposit > 0){
             System.out.print("Please enter the amount you want to withdraw(In INR) : ");  // ASKING FOR THE AMOUNT 
             amount =scan.nextDouble();
             scan.nextLine();
+            
             System.out.print("Please enter Password to continue : ");  // TO SEE WITHDRAW MONEY USER MUST CONFERM PASSWORD 
             password=scan.nextLine();
             if(password.equals(currentUser.getPassword())){
-                if( currentUser.withdraw(amount)){
+               
+                while(!( currentUser.withdraw(amount))){
+                   System.out.println("Your current balance is less then Rs."+amount+"\nplease enter a valid amount ");
+                    amount=scan.nextDouble();
+                   scan.nextLine();
+                }
+                
                     System.out.println("Amount Successfully withdrawed!");
-                }
-                else{
-                    System.out.println("Please enter a valid amount!");
-                    break;
-                }
+                
             }
             else{
             System.out.println("Wrong Password! Transaction cancelled.");
@@ -223,7 +232,8 @@ if(deposit > 0){
             System.out.println("  Thank you for banking with us! ");
             System.out.println("====================================\n\n");
             currentUser=null;
-            start();
+          //  start();             //     <-- you can un-comment this  if you want to check "login" function 
+          // Currently I don't have any database to store this data of the users (Cause I am still learning DBMS) but in next version it will be added surely :)
               break;
             
             default:
